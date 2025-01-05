@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+  .background{
+    @apply w-[100vw] h-[100vh] bg-blue-100
+  }
+  .note-title{
+    @apply w-full  max-h-[4rem]  h-full border-b-2 border-neutral-200 font-bold text-[30px] flex items-center justify-between px-2
+  }
+  .task{
+    @apply w-full  py-2 border-b-2 border-neutral-100 text-[20px] flex items-center gap-x-2 min-h-[3rem] text-neutral-600
+  }
+  .checkbox-bg{
+    @apply size-4 border-2 rounded-full border-neutral-200 p-[2.5px] flex items-center justify-center
+  }
+  .login_fields{
+    @apply flex flex-col gap-y-1
+  }
+  .login_fields input {
+    @apply border-2 border-neutral-200 p-2 rounded-md outline-none
+  }
+}
