@@ -13,7 +13,7 @@
     @apply w-full  py-2 border-b-2 border-neutral-100 text-[20px] flex items-center gap-x-2 min-h-[3rem] text-neutral-600
   }
   .checkbox-bg{
-    @apply size-4 border-2 rounded-full border-neutral-200 p-[2.5px] flex items-center justify-center
+    @apply size-4 border-2 rounded-full border-neutral-200 p-[2.5px] flex items-center justify-center shrink-0
   }
   .login_fields{
     @apply flex flex-col gap-y-1

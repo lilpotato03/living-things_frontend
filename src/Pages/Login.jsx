@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
+import { MainContext } from '../Contexts/AppContext'
 function Login() {
     const [username,setUsername]=useState('')
     const [password,setPassword]=useState('')
     const[submit,setSubmit]=useState(false)
     const[alert,setAlert]=useState('')
+    const {user}=useContext(MainContext)
     const post=async()=>{
         if(username.length==0){
             console.log('username cannot be empty')
@@ -18,6 +20,11 @@ function Login() {
         const res=await axios.post('/nodejs/login',{'username':username,'password':password},{headers:{'Content-type':'application/x-www-form-urlencoded'}})
         await setAlert(res.data)
         console.log(res.data)
+        if(res.status==200){
+            setTimeout(()=>{
+                window.location='http://localhost:5173/'
+            },2000)
+        }
     }
     useEffect(
         ()=>{
@@ -32,7 +39,11 @@ function Login() {
         },[submit]
     )
 
-
+    if(user){
+        return(
+            <Profile />
+        )
+    }else{
   return (
     <div className='background flex flex-col  items-center p-4 gap-y-4 justify-center'>
         <div className='max-w-[20rem] max-h-[50rem] p-4 rounded-md shadow-md bg-white w-full gap-y-4  flex flex-col justify-center'>
@@ -53,6 +64,7 @@ function Login() {
         </div>
     </div>
   )
+}
 }
 
 export default Login

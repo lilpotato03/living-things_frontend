@@ -1,8 +1,17 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useContext } from 'react'
+import { MainContext } from '../Contexts/AppContext'
 
 function Checkbox(props) {
-    function toggle(){
-        props.func(!props.param)
+    const {refresh,setRefresh}=useContext(MainContext)
+    async function toggle(){
+        try{
+            const res=await axios.put(`/django/task/${props.username}/${props.note}/${props.id}`,{"checked":!props.param},{headers:{"Content-Type":'application/json'}})
+            props.func(!props.param)
+            setRefresh(refresh+1)
+        }catch(e){
+            console.log(e.message)
+        }
     }
   return (
         <div className='checkbox-bg' onClick={toggle} >

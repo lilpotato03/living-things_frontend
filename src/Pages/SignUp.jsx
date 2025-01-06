@@ -1,12 +1,14 @@
-import React, { useState,useEffect} from 'react'
+import React, { useState,useEffect, useContext} from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { MainContext } from '../Contexts/AppContext'
+import Profile from './Profile'
 function SignUp() {
     const [username,setUsername]=useState('')
     const [name,setName]=useState('')
     const [password1,setPassword1]=useState('')
     const [password2,setPassword2]=useState('')
-
+    const {user}=useContext(MainContext)
     const[submit,setSubmit]=useState(false)
     const[alert,setAlert]=useState('')
     const post=async()=>{
@@ -28,6 +30,11 @@ function SignUp() {
         const res=await axios.post('/nodejs/signup',{'username':username,'password':password1,'name':name},{headers:{'Content-type':'application/x-www-form-urlencoded'}})
         await setAlert(res.data)
         console.log(res.data)
+        if(res.status==200){
+            setTimeout(()=>{
+                window.location='http://localhost:5173/'
+            },2000)
+        }
     }
     useEffect(
         ()=>{
@@ -41,6 +48,9 @@ function SignUp() {
             }
         },[submit]
     )
+    if(user){
+        return(<Profile />)
+    }else{
   return (
     <div className='background flex flex-col  items-center p-4 gap-y-4 justify-center'>
         <div className='max-w-[20rem] max-h-[50rem] p-4 rounded-md shadow-md bg-white w-full gap-y-4  flex flex-col justify-center'>
@@ -69,6 +79,7 @@ function SignUp() {
         </div>
     </div>
     )
+}
 }
 
 export default SignUp
